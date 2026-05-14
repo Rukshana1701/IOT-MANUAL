@@ -1,0 +1,78 @@
+SQL Commands 
+1. Update the Raspberry Pi system using the terminal 
+commands: sudo apt update 
+sudo apt upgrade -y 
+2. Install MariaDB server on Raspberry 
+Pi using: sudo apt install mariadb
+server -y 
+3. Start and enable the MariaDB service: 
+sudo systemctl start 
+mariadb sudo systemctl 
+enable mariadb 
+4. Open the MariaDB terminal using: 
+sudo mysql 
+5. Create a new MariaDB user and provide privileges: 
+CREATE USER 'piuser'@'localhost' IDENTIFIED 
+BY '1234'; GRANT ALL PRIVILEGES ON *.* TO 
+'piuser'@'localhost'; FLUSH PRIVILEGES; 
+6. Exit from 
+MariaDB using: 
+EXIT; 
+7. Login again using the 
+created user: mysql -u 
+piuser -p 
+8. Create a new database: 
+CREATE DATABASE Raspberrypi; 
+9. Select the 
+database: 
+USE 
+Raspberrypi; 
+10. Create a table named 
+records: CREATE 
+TABLE records ( 
+id INT AUTO_INCREMENT PRIMARY 
+KEY, name VARCHAR(100), 
+department 
+VARCHAR(100), 
+marks INT 
+); 
+11. Insert records into the table: 
+INSERT INTO records (name, department, marks) 
+VALUES 
+('Arun', 'ECE', 85), 
+('Kavin', 'CSE', 90), 
+('Priya', 'EEE', 88); 
+12. Display all 
+records using: 
+SELECT * FROM 
+records; 
+13. Update a 
+record using: 
+UPDATE records 
+SET marks = 
+95 WHERE 
+id = 1; 
+14. Delete 
+record 
+a 
+using: 
+DELETE FROM 
+records WHERE 
+id = 2; 
+15. Display the final 
+records table: SELECT * 
+FROM records; 
+16. Export the table into CSV 
+format: SELECT * 
+INTO OUTFILE 
+'/tmp/records.csv' FIELDS 
+TERMINATED BY ',' 
+ENCLOSED BY '"' 
+LINES TERMINATED BY '\n' 
+FROM records; 
+17. Exit from 
+MariaDB using: 
+EXIT; 
+18. View the exported CSV 
+file using: cat 
+/tmp/records.csv
