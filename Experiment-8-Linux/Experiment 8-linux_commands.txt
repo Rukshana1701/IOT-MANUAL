@@ -1,0 +1,8 @@
+ Pwd 
+ ls 
+ mkdir test 
+ cd test 
+ touch file.txt 
+ cat file.txt 
+ nano file.txt 
+ python3 
