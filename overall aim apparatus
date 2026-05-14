@@ -1,0 +1,881 @@
+# Arduino Experiments — Complete Details
+
+# Experiment 1 — LED Blink Using Arduino UNO
+
+## Aim
+
+To study the working of a microcontroller and perform LED blinking using Arduino UNO.
+
+## Apparatus Required
+
+* Arduino UNO
+* LED
+* 220Ω Resistor
+* Breadboard
+* Jumper Wires
+* USB Cable
+
+## Pin Description
+
+| Arduino Pin | Component    |
+| ----------- | ------------ |
+| Pin 13      | LED Positive |
+| GND         | LED Negative |
+
+## Connection Diagram
+
+```text id="9qdbjo"
+Arduino Pin 13 ---- 220Ω Resistor ---- LED (+)
+
+LED (-) ------------------------------ GND
+```
+
+## Program
+
+```cpp
+void setup() {
+  pinMode(13, OUTPUT);
+}
+
+void loop() {
+
+  digitalWrite(13, HIGH);
+  delay(1000);
+
+  digitalWrite(13, LOW);
+  delay(1000);
+}
+```
+
+---
+
+# Experiment 2 — LM35 Temperature Sensor
+
+## Aim
+
+To collect sensor data and transfer through serial communication.
+
+## Apparatus Required
+
+* Arduino UNO
+* LM35 Sensor
+* Breadboard
+* Jumper Wires
+* USB Cable
+
+## Pin Description
+
+| LM35 Pin | Arduino UNO |
+| -------- | ----------- |
+| VCC      | 5V          |
+| OUT      | A0          |
+| GND      | GND         |
+
+## Connection Diagram
+
+```text id="0bg7ij"
+LM35 VCC ---- Arduino 5V
+
+LM35 OUT ---- Arduino A0
+
+LM35 GND ---- Arduino GND
+```
+
+## Program
+
+```cpp
+int sensorPin = A0;
+
+void setup() {
+
+  Serial.begin(9600);
+}
+
+void loop() {
+
+  int value = analogRead(sensorPin);
+
+  float voltage = value * (5.0 / 1023.0);
+
+  float temp = voltage * 100;
+
+  Serial.println(temp);
+
+  delay(1000);
+}
+```
+
+---
+
+# Experiment 3 — Ultrasonic Sensor with Arduino
+
+## Aim
+
+To interface ultrasonic sensor with Arduino UNO and measure distance.
+
+## Apparatus Required
+
+* Arduino UNO
+* HC-SR04 Ultrasonic Sensor
+* Breadboard
+* Jumper Wires
+* USB Cable
+
+## Pin Description
+
+| HC-SR04 Pin | Arduino UNO |
+| ----------- | ----------- |
+| VCC         | 5V          |
+| GND         | GND         |
+| Trigger     | Pin 11      |
+| Echo        | Pin 8       |
+
+## Connection Diagram
+
+```text id="zhig71"
+HC-SR04 VCC ------- Arduino 5V
+
+HC-SR04 GND ------- Arduino GND
+
+HC-SR04 Trigger --- Arduino Pin 11
+
+HC-SR04 Echo ------ Arduino Pin 8
+```
+
+## Program
+
+```cpp
+#define Trigger 11
+#define Echo 8
+
+void setup() {
+
+  Serial.begin(115200);
+
+  pinMode(Trigger, OUTPUT);
+  pinMode(Echo, INPUT);
+}
+
+void loop() {
+
+  digitalWrite(Trigger, LOW);
+  delayMicroseconds(2);
+
+  digitalWrite(Trigger, HIGH);
+  delayMicroseconds(10);
+
+  digitalWrite(Trigger, LOW);
+
+  long duration = pulseIn(Echo, HIGH);
+
+  int distance = duration / 58;
+
+  Serial.print("Distance in CM : ");
+  Serial.println(distance);
+
+  delay(1000);
+}
+```
+
+---
+
+# Experiment 4 — Traffic Light System
+
+## Aim
+
+To simulate traffic light system using Arduino UNO.
+
+## Apparatus Required
+
+* Arduino UNO
+* Red LED
+* Yellow LED
+* Green LED
+* 220Ω Resistors
+* Breadboard
+* Jumper Wires
+
+## Pin Description
+
+| LED        | Arduino Pin |
+| ---------- | ----------- |
+| Red LED    | Pin 4       |
+| Yellow LED | Pin 2       |
+| Green LED  | Pin 3       |
+
+## Connection Diagram
+
+```text id="mg73n6"
+Red LED -------- Pin 4
+
+Yellow LED ----- Pin 2
+
+Green LED ------ Pin 3
+
+All LED negative terminals ---- GND
+```
+
+## Program
+
+```cpp
+void setup() {
+
+  pinMode(2, OUTPUT);
+  pinMode(3, OUTPUT);
+  pinMode(4, OUTPUT);
+}
+
+void loop() {
+
+  digitalWrite(4, HIGH);
+  digitalWrite(3, LOW);
+  digitalWrite(2, LOW);
+
+  delay(2000);
+
+  digitalWrite(4, LOW);
+  digitalWrite(2, HIGH);
+
+  delay(2000);
+
+  digitalWrite(2, LOW);
+  digitalWrite(3, HIGH);
+
+  delay(2000);
+}
+```
+
+---
+
+# Experiment 5 — Push Button with LED/Buzzer
+
+## Aim
+
+To interface push button with Arduino UNO and control LED/Buzzer.
+
+## Apparatus Required
+
+* Arduino UNO
+* Push Button
+* LED/Buzzer
+* 220Ω Resistor
+* Breadboard
+* Jumper Wires
+
+## Pin Description
+
+| Component   | Arduino Pin |
+| ----------- | ----------- |
+| Push Button | Pin 2       |
+| LED/Buzzer  | Pin 3       |
+
+## Connection Diagram
+
+```text id="25ab1n"
+Push Button ------- Pin 2
+
+LED/Buzzer -------- Pin 3
+
+Common GND -------- Arduino GND
+```
+
+## Program
+
+```cpp
+const int buttonPin = 2;
+const int ledPin = 3;
+
+void setup() {
+
+  pinMode(buttonPin, INPUT);
+  pinMode(ledPin, OUTPUT);
+}
+
+void loop() {
+
+  int buttonState = digitalRead(buttonPin);
+
+  if (buttonState == HIGH) {
+
+    digitalWrite(ledPin, HIGH);
+    delay(300);
+
+    digitalWrite(ledPin, LOW);
+    delay(300);
+
+  } else {
+
+    digitalWrite(ledPin, LOW);
+  }
+}
+```
+
+---
+
+# Experiment 6 — Potentiometer Controlled LED Brightness
+
+## Aim
+
+To control LED brightness using potentiometer and Arduino UNO.
+
+## Apparatus Required
+
+* Arduino UNO
+* Potentiometer
+* LED
+* 220Ω Resistor
+* Breadboard
+* Jumper Wires
+
+## Pin Description
+
+| Component                | Arduino Pin |
+| ------------------------ | ----------- |
+| Potentiometer Middle Pin | A0          |
+| Potentiometer Side Pin   | 5V          |
+| Potentiometer Other Side | GND         |
+| LED                      | Pin 3       |
+
+## Connection Diagram
+
+```text id="c1e5dn"
+Potentiometer Left ------- 5V
+
+Potentiometer Middle ----- A0
+
+Potentiometer Right ------ GND
+
+LED ---------------------- Pin 3
+```
+
+## Program
+
+```cpp
+const int analog_in = A0;
+
+void setup() {
+
+  pinMode(3, OUTPUT);
+
+  Serial.begin(115200);
+}
+
+void loop() {
+
+  int val = analogRead(analog_in);
+
+  analogWrite(3, val / 4);
+
+  Serial.print("Potentiometer Value : ");
+  Serial.println(val);
+
+  delay(500);
+}
+```
+# Raspberry Pi Experiments — Complete Details
+
+# Experiment 7 — Handling and Setting up Raspberry Pi
+
+## Aim
+
+To install and configure Raspberry Pi operating system.
+
+## Apparatus Required
+
+* Raspberry Pi
+* Micro SD Card
+* Power Adapter
+* HDMI Monitor
+* Keyboard
+* Mouse
+
+## Pin Description
+
+No GPIO pins required.
+
+## Connection Diagram
+
+```text id="st6om5"
+Micro SD Card ---- Raspberry Pi
+
+HDMI Cable ------- Monitor
+
+Keyboard --------- USB Port
+
+Mouse ------------ USB Port
+
+Power Adapter ---- Raspberry Pi
+```
+
+## Procedure
+
+1. Download Raspberry Pi OS.
+2. Flash OS using Raspberry Pi Imager.
+3. Insert SD card into Raspberry Pi.
+4. Connect monitor, keyboard, and mouse.
+5. Power ON Raspberry Pi.
+6. Complete setup.
+
+---
+
+# Experiment 8 — Working with Linux
+
+## Aim
+
+To learn basic Linux commands in Raspberry Pi.
+
+## Apparatus Required
+
+* Raspberry Pi
+* Keyboard
+* Monitor
+
+## Pin Description
+
+No GPIO pins required.
+
+## Connection Diagram
+
+```text id="m6owkz"
+Raspberry Pi ---- Monitor
+
+Keyboard -------- USB Port
+```
+
+## Linux Commands
+
+```bash id="zpjk1q"
+pwd
+
+ls
+
+mkdir test
+
+cd test
+
+touch file.txt
+
+cat file.txt
+
+nano file.txt
+
+python3
+```
+
+---
+
+# Experiment 9 — Motor Control with Raspberry Pi
+
+## Aim
+
+To control DC motor using Raspberry Pi GPIO.
+
+## Apparatus Required
+
+* Raspberry Pi
+* L293D Motor Driver
+* DC Motor
+* Jumper Wires
+
+## Pin Description
+
+| Raspberry Pi Physical Pin | GPIO   | L293D Connection |
+| ------------------------- | ------ | ---------------- |
+| Pin 11                    | GPIO17 | Input 1          |
+| Pin 12                    | GPIO18 | Input 2          |
+| Pin 2                     | 5V     | VCC              |
+| Pin 6                     | GND    | GND              |
+
+## Connection Diagram
+
+```text id="0n53q3"
+Raspberry Pi Pin 11 (GPIO17) ---- L293D IN1
+
+Raspberry Pi Pin 12 (GPIO18) ---- L293D IN2
+
+Raspberry Pi Pin 2 (5V) --------- L293D VCC
+
+Raspberry Pi Pin 6 (GND) -------- L293D GND
+
+L293D OUT1 and OUT2 ------------- DC Motor
+```
+
+## Program
+
+```python id="mgl0a2"
+from gpiozero import Motor
+from time import sleep
+
+motor = Motor(forward=17, backward=18)
+
+print("Motor Forward")
+
+motor.forward()
+
+sleep(5)
+
+print("Motor Stop")
+
+motor.stop()
+```
+
+---
+
+# Experiment 10 — Ultrasonic Sensor with Raspberry Pi
+
+## Aim
+
+To measure distance using ultrasonic sensor and Raspberry Pi.
+
+## Apparatus Required
+
+* Raspberry Pi
+* HC-SR04 Ultrasonic Sensor
+* Breadboard
+* Jumper Wires
+
+## Pin Description
+
+| Raspberry Pi Pin | GPIO   | Ultrasonic Sensor |
+| ---------------- | ------ | ----------------- |
+| Pin 16           | GPIO23 | Trigger           |
+| Pin 18           | GPIO24 | Echo              |
+| Pin 2            | 5V     | VCC               |
+| Pin 6            | GND    | GND               |
+
+## Connection Diagram
+
+```text id="ihocdf"
+Raspberry Pi Pin 16 (GPIO23) ---- Trigger
+
+Raspberry Pi Pin 18 (GPIO24) ---- Echo
+
+Raspberry Pi Pin 2 (5V) --------- VCC
+
+Raspberry Pi Pin 6 (GND) -------- GND
+```
+
+## Program
+
+```python id="rz9r2k"
+from gpiozero import DistanceSensor
+from time import sleep
+
+sensor = DistanceSensor(echo=24, trigger=23)
+
+while True:
+
+    distance = sensor.distance * 100
+
+    print("Distance :", round(distance, 2), "cm")
+
+    sleep(1)
+```
+
+---
+
+# Experiment 11 — Working with SQL
+
+## Aim
+
+To perform basic SQL operations.
+
+## Apparatus Required
+
+* Raspberry Pi
+* MariaDB/MySQL Server
+* Keyboard
+* Monitor
+
+## Pin Description
+
+No GPIO connection required.
+
+## Connection Diagram
+
+```text id="0o7n0n"
+Raspberry Pi ---- MariaDB / MySQL Server
+```
+
+## SQL Commands
+
+```sql id="9m1wgv"
+CREATE DATABASE Raspberrypi;
+
+USE Raspberrypi;
+
+CREATE TABLE records (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100),
+    department VARCHAR(100),
+    marks INT
+);
+
+INSERT INTO records (name, department, marks)
+VALUES
+('Arun', 'ECE', 85),
+('Kavin', 'CSE', 90),
+('Priya', 'EEE', 88);
+
+SELECT * FROM records;
+
+UPDATE records
+SET marks = 95
+WHERE id = 1;
+
+DELETE FROM records
+WHERE id = 2;
+
+SELECT * FROM records;
+```
+
+---
+
+# Experiment 12 — Temperature Sensor using Raspberry Pi
+
+## Aim
+
+To collect temperature and humidity data using DHT11 sensor.
+
+## Apparatus Required
+
+* Raspberry Pi 5
+* DHT11 Sensor
+* Jumper Wires
+
+## Pin Description
+
+| Raspberry Pi Physical Pin | GPIO  | DHT11 Pin |
+| ------------------------- | ----- | --------- |
+| Pin 1                     | 3.3V  | VCC       |
+| Pin 7                     | GPIO4 | DATA      |
+| Pin 6                     | GND   | GND       |
+
+## Connection Diagram
+
+```text id="96r8c9"
+Raspberry Pi Pin 1 (3.3V) ---- DHT11 VCC
+
+Raspberry Pi Pin 7 (GPIO4) --- DHT11 DATA
+
+Raspberry Pi Pin 6 (GND) ----- DHT11 GND
+```
+
+## Program
+
+```python id="q9v7kb"
+import adafruit_dht
+import board
+import time
+
+dht_device = adafruit_dht.DHT11(board.D4)
+
+while True:
+
+    try:
+
+        temp = dht_device.temperature
+        humi = dht_device.humidity
+
+        print(f"Temperature: {temp}°C")
+        print(f"Humidity: {humi}%")
+
+    except RuntimeError as error:
+
+        print(error.args[0])
+
+    time.sleep(2)
+}
+```
+# Experiment 13 — Fundamental Operations in Node-RED
+
+## Aim
+
+To study basic Node-RED operations.
+
+## Apparatus Required
+
+* Raspberry Pi
+* Node-RED Installed
+* LED
+* 220Ω Resistor
+* Jumper Wires
+
+## Pin Description
+
+| Raspberry Pi Physical Pin | GPIO   | Component    |
+| ------------------------- | ------ | ------------ |
+| Pin 11                    | GPIO17 | LED Positive |
+| Pin 6                     | GND    | LED Negative |
+
+## Connection Diagram
+
+```text id="aoh4wc"
+Raspberry Pi Pin 11 (GPIO17)
+        |
+       LED
+        |
+   220Ω Resistor
+        |
+Raspberry Pi Pin 6 (GND)
+```
+
+## Node-RED Flow
+
+```text id="mx53nl"
+[Inject:1] ----> [GPIO17]
+
+[Inject:0] ----> [GPIO17]
+```
+
+## Procedure
+
+1. Connect LED to GPIO17.
+2. Open terminal.
+3. Start Node-RED:
+
+```bash id="ayg9kk"
+node-red-start
+```
+
+4. Open browser:
+
+```text id="mg9fmo"
+http://localhost:1880
+```
+
+5. Drag:
+
+* Inject Node
+* GPIO Output Node
+
+6. Configure GPIO node:
+
+* GPIO17
+* Digital Output
+
+7. Connect nodes.
+8. Click Deploy.
+9. Click Inject buttons to turn LED ON/OFF.
+
+## Output
+
+* Inject 1 → LED ON
+* Inject 0 → LED OFF
+
+## Result
+
+Basic Node-RED operations were successfully performed.
+
+---
+
+# Experiment 14 — Real Time Data Visualization in ThingsBoard
+
+## Aim
+
+To visualize real-time sensor data using ThingsBoard.
+
+## Apparatus Required
+
+* Raspberry Pi
+* DHT11 Sensor
+* Internet Connection
+* ThingsBoard Platform
+* Jumper Wires
+
+## Pin Description
+
+| Raspberry Pi Physical Pin | GPIO  | DHT11 Pin |
+| ------------------------- | ----- | --------- |
+| Pin 1                     | 3.3V  | VCC       |
+| Pin 7                     | GPIO4 | DATA      |
+| Pin 6                     | GND   | GND       |
+
+## Connection Diagram
+
+```text id="3mkt4g"
+Raspberry Pi Pin 1 (3.3V) ---- DHT11 VCC
+
+Raspberry Pi Pin 7 (GPIO4) --- DHT11 DATA
+
+Raspberry Pi Pin 6 (GND) ----- DHT11 GND
+
+Raspberry Pi ---- Internet ---- ThingsBoard Cloud
+```
+
+## Program
+
+```python id="zpw9j3"
+import adafruit_dht
+import board
+import paho.mqtt.client as mqtt
+import json
+import time
+
+BROKER = "thingsboard.cloud"
+PORT = 1883
+
+ACCESS_TOKEN = "YOUR_ACCESS_TOKEN"
+
+# DHT11 Sensor
+dht = adafruit_dht.DHT11(board.D4)
+
+# MQTT Client
+client = mqtt.Client()
+
+client.username_pw_set(ACCESS_TOKEN)
+
+client.connect(BROKER, PORT, 60)
+
+client.loop_start()
+
+print("Sending DHT11 data to ThingsBoard...")
+
+while True:
+
+    try:
+
+        temperature = dht.temperature
+        humidity = dht.humidity
+
+        if temperature is not None and humidity is not None:
+
+            payload = {
+                "temperature": temperature,
+                "humidity": humidity
+            }
+
+            client.publish(
+                "v1/devices/me/telemetry",
+                json.dumps(payload)
+            )
+
+            print("Sent:", payload)
+
+        else:
+
+            print("Sensor Read Failed")
+
+    except RuntimeError as e:
+
+        print("Retrying Sensor...", e.args[0])
+
+    time.sleep(5)
+```
+
+## Output
+
+```text id="ntn9fp"
+Connected to ThingsBoard
+
+Sending DHT11 data...
+
+Sent:
+Temperature = 29°C
+Humidity = 68%
+```
+
+## Result
+
+Real-time sensor data visualization was successfully implemented using ThingsBoard.
+
