@@ -1,0 +1,29 @@
+#define Trigger 11
+#define Echo 8
+
+void setup() {
+  Serial.begin(115200);
+
+  pinMode(Trigger, OUTPUT);
+  pinMode(Echo, INPUT);
+}
+
+void loop() {
+
+  digitalWrite(Trigger, LOW);
+  delayMicroseconds(2);
+
+  digitalWrite(Trigger, HIGH);
+  delayMicroseconds(10);
+
+  digitalWrite(Trigger, LOW);
+
+  long duration = pulseIn(Echo, HIGH);
+
+  int distance = duration / 58;
+
+  Serial.print("Distance in CM : ");
+  Serial.println(distance);
+
+  delay(1000);
+}
