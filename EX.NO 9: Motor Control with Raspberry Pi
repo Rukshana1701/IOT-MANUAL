@@ -1,0 +1,14 @@
+from gpiozero import Motor
+from time import sleep
+
+motor = Motor(forward=17, backward=18)
+
+print("Motor Forward")
+
+motor.forward()
+
+sleep(5)
+
+print("Motor Stop")
+
+motor.stop()
