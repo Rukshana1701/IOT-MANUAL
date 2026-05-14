@@ -1,0 +1,47 @@
+# Experiment 13 - Fundamental Operations in Node-RED
+
+## Aim
+To study basic Node-RED operations.
+
+## Apparatus Required
+- Raspberry Pi
+- Node-RED Installed
+- LED
+- Resistor
+- Jumper Wires
+
+## Node Configuration
+
+### Inject Node 1
+- Payload: 1
+- Topic: LED ON
+
+### Inject Node 2
+- Payload: 0
+- Topic: LED OFF
+
+### GPIO Output Node
+- GPIO Pin: 17
+- Type: Digital Output
+
+## Flow
+
+[Inject:1] ---> [GPIO17]
+
+[Inject:0] ---> [GPIO17]
+
+## Procedure
+1. Connect LED to GPIO17.
+2. Start Node-RED using:
+   node-red-start
+
+3. Open browser:
+   http://localhost:1880
+
+4. Drag Inject nodes and GPIO node.
+5. Connect nodes.
+6. Click Deploy.
+7. Click inject buttons to turn LED ON/OFF.
+
+## Result
+Basic Node-RED operations were successfully performed.
