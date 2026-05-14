@@ -1,0 +1,20 @@
+const int analog_in = A0;
+
+void setup() {
+
+  pinMode(3, OUTPUT);
+
+  Serial.begin(115200);
+}
+
+void loop() {
+
+  int val = analogRead(analog_in);
+
+  analogWrite(3, val / 4);
+
+  Serial.print("Potentiometer Value : ");
+  Serial.println(val);
+
+  delay(500);
+}
